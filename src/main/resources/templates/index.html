@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ashok IT Blog App</title>
+    <style>
+        /* Flexbox layout */
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #222;
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .brand {
+            font-weight: bold;
+            margin-right: 30px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 14px;
+        }
+
+        /* Main container */
+        .container {
+            display: flex;
+            width: 90%;
+            margin: 20px auto;
+            flex: 1; /* IMPORTANT: allows footer to push down */
+        }
+
+        /* Blog list */
+        .blogs {
+            width: 70%;
+            margin-right: 20px;
+        }
+
+        .blog-card {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        .blog-card h2 {
+            margin: 0;
+            color: #007bff;
+            font-size: 22px;
+        }
+
+        .blog-card small {
+            color: #666;
+        }
+
+        .blog-card p {
+            margin: 10px 0 0;
+            font-size: 14px;
+        }
+
+        .blog-card a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 30%;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            height: fit-content;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+        }
+
+        .sidebar input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .sidebar button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+
+            margin-top: auto; /* KEY LINE */
+        }
+
+        footer span {
+            color: #00aaff;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="brand">Ashok IT Blog App</div>
+    <a href="#">All Posts</a>
+    <a href="signUp">Register</a>
+    <a href="signIn">Login</a>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+
+    <!-- Blog Section -->
+    <div class="blogs">
+        <div class="blog-card">
+            <h2>What is Java</h2>
+            <small>02 May 2023</small>
+            <p>Java is a programming language <a href="#">Read more</a></p>
+        </div>
+
+        <div class="blog-card">
+            <h2>What is Spring Boot</h2>
+            <small>02 May 2023</small>
+            <p>SpringBoot is an approach to develop Spring Based Applications <a href="#">Read more</a></p>
+        </div>
+
+        <div class="blog-card">
+            <h2>What is Angular ?</h2>
+            <small>02 May 2023</small>
+            <p>A framework to develop Single Page Applications <a href="#">Read more</a></p>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Blog Search</h3>
+        <input type="text" placeholder="Search blog">
+        <button>Search</button>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    Copyright © 2023 <span>Ashok IT</span> All rights reserved.
+</footer>
+
+</body>
+</html>
