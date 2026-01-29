@@ -22,6 +22,10 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
+
+    @Autowired
+    private HttpSession session;
+
     @GetMapping("/signUp")
     public String signup(Model model) {
         model.addAttribute("user", new SignupForm());
@@ -49,19 +53,27 @@ public class UserController {
     public String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session, Model model){
         boolean status = userService.login(loginForm);
 
-        if(!status){
-            model.addAttribute("errMsg","Invalid username or password");
+
+        if (!status) {
+            model.addAttribute("errMsg", "Invalid Email or Password");
             return "login_page";
         }
 
-        UserEntity user = userRepo.findByEmail(loginForm.getEmail());
+        // fetch user only to store session
+        UserEntity user =
+                userRepo.findByEmail(loginForm.getEmail());
+
         session.setAttribute("userId", user.getUserId());
+
+        // 🔥 THIS LINE IS THE MOST IMPORTANT
         return "redirect:/posts";
+
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session){
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/signIn";
     }
+
 }
