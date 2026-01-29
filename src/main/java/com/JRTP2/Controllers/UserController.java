@@ -22,6 +22,7 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
+
     @Autowired
     private HttpSession session;
 
@@ -49,8 +50,9 @@ public class UserController {
     }
 
     @PostMapping("/signIn")
-    public String login(@ModelAttribute("loginForm") LoginForm loginForm, Model model){
+    public String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session, Model model){
         boolean status = userService.login(loginForm);
+
 
         if (!status) {
             model.addAttribute("errMsg", "Invalid Email or Password");
@@ -65,6 +67,7 @@ public class UserController {
 
         // 🔥 THIS LINE IS THE MOST IMPORTANT
         return "redirect:/posts";
+
     }
 
     @GetMapping("/logout")
