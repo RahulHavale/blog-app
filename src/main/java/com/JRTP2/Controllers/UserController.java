@@ -2,7 +2,10 @@ package com.JRTP2.Controllers;
 
 import com.JRTP2.BindingClasses.LoginForm;
 import com.JRTP2.BindingClasses.SignupForm;
+import com.JRTP2.Entity.UserEntity;
+import com.JRTP2.Repositories.UserRepo;
 import com.JRTP2.Services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/signUp")
     public String signup(Model model) {
@@ -42,11 +51,26 @@ public class UserController {
     @PostMapping("/signIn")
     public String login(@ModelAttribute("loginForm") LoginForm loginForm, Model model){
         boolean status = userService.login(loginForm);
-        if(status){
-            model.addAttribute("succMsg","Logged In successfully");
-        }else{
-            model.addAttribute("errMsg","Invalid Credentials");
+
+        if (!status) {
+            model.addAttribute("errMsg", "Invalid Email or Password");
+            return "login_page";
         }
-        return "login_page";
+
+        // fetch user only to store session
+        UserEntity user =
+                userRepo.findByEmail(loginForm.getEmail());
+
+        session.setAttribute("userId", user.getUserId());
+
+        // 🔥 THIS LINE IS THE MOST IMPORTANT
+        return "redirect:/posts";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/signIn";
+    }
+
 }

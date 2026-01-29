@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>All Posts</h2>
+
+<a th:href="@{/post/new}">New Post</a>
+<a th:href="@{/logout}">Logout</a>
+
+<hr>
+
+<div th:each="p : ${posts}">
+    <h3 th:text="${p.title}"></h3>
+    <p th:text="${p.description}"></p>
+
+    <a th:href="@{/post/delete/{id}(id=${p.postId})}">Delete</a>
+
+    <form th:action="@{/comment/add}" method="post">
+        <input type="hidden" name="postId" th:value="${p.postId}">
+        <input type="text" name="content" placeholder="Add comment">
+        <button type="submit">Comment</button>
+    </form>
+
+    <ul>
+        <li th:each="c : ${p.comments}">
+            <span th:text="${c.content}"></span>
+            <a th:href="@{/comment/delete/{id}(id=${c.commentId})}">X</a>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
